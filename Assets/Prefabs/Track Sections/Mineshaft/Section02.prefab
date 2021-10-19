@@ -428,7 +428,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f805a17726eb5ca4e8d763b30e082985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 50
+  totalLength: 50
+  toDelete: 0
+  spawnPoints:
+  - {x: 0.5, y: 1.5}
+  - {x: 0, y: 1.5}
+  - {x: -0.5, y: 1.5}
 --- !u!1 &9049470399168598135
 GameObject:
   m_ObjectHideFlags: 0
