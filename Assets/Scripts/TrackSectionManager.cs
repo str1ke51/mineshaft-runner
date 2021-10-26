@@ -12,17 +12,24 @@ public class TrackSectionManager : MonoBehaviour
     public TrackSection startTrackSectionPrefab = null;
     public List<TrackSection> trackSectionPrefabs = new List<TrackSection>();
 
-    [Header("Collectible Items")]
-    public float spawnRatePercent = 0.50f;
-    public List<CollectibleItemSettings> collectibleItemPrefabs = new List<CollectibleItemSettings>();
+    [Header("Spawnable Items")]
+    public float spawnRatePercent = 0.25f;
+    public List<SpawnableItemSettings> spawnableItemPrefabs = new List<SpawnableItemSettings>();
 
     [Header("DEBUG")]
+    [SerializeField]
     public List<TrackSection> spawnedSections = new List<TrackSection>();
+    [SerializeField]
     private Vector3 targetSpawn = new Vector3();
+    [SerializeField]
+    private float spawnableItemsPointsRange = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        foreach (var item in spawnableItemPrefabs)
+            spawnableItemsPointsRange += (1.0f / item.points);
+
         targetSpawn = transform.position + Vector3.forward * startTrackSectionPrefab.totalLength / 2;
 
         TrackSection start = Instantiate(startTrackSectionPrefab, targetSpawn, Quaternion.identity);
@@ -82,11 +89,27 @@ public class TrackSectionManager : MonoBehaviour
         {
             for (int i = 0; i < section.totalLength; i++)
             {
-                int counterSpawnRate = Mathf.RoundToInt(collectibleItemPrefabs.Count / spawnRatePercent) - collectibleItemPrefabs.Count;
-                int spawn = Random.Range(-1 * counterSpawnRate, collectibleItemPrefabs.Count);
+                float counterSpawnRate = spawnableItemsPointsRange / spawnRatePercent - spawnableItemsPointsRange;
+                float spawn = Random.Range(-1 * counterSpawnRate, spawnableItemsPointsRange);
 
                 if (spawn >= 0)
                 {
+                    int spawnToIndex = spawnableItemPrefabs.Count - 1;
+                    for (int j = 0; j < spawnableItemPrefabs.Count; j++)
+                    {
+                        float itemRange = 1.0f / spawnableItemPrefabs[j].points;
+
+                        if (spawn < itemRange)
+                        {
+                            spawnToIndex = j;
+                            break;
+                        }
+                        else
+                        {
+                            spawn -= itemRange;
+                        }
+                    }
+
                     int spawnLength = Random.Range(1, Mathf.Min(4, Mathf.RoundToInt(section.totalLength - i)));
                     int spawnVectorIndex = Random.Range(0, section.spawnPoints.Count);
                     Vector2 spawnVector = section.spawnPoints[spawnVectorIndex];
@@ -98,7 +121,7 @@ public class TrackSectionManager : MonoBehaviour
                                       Vector3.up * spawnVector.y +
                                       Vector3.right * spawnVector.x;
 
-                        Instantiate(collectibleItemPrefabs[spawn], targetSpawn, Quaternion.identity, section.transform);
+                        Instantiate(spawnableItemPrefabs[spawnToIndex], targetSpawn, Quaternion.identity, section.transform);
                     }
 
                     i += spawnLength;

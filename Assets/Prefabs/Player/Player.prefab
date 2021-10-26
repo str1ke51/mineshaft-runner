@@ -721,7 +721,7 @@ MonoBehaviour:
   m_Device: 0
   m_PoseSource: 2
   m_PoseProviderComponent: {fileID: 0}
-  m_TrackingType: 0
+  m_TrackingType: 1
   m_UpdateType: 0
   m_UseRelativeTransform: 1
 --- !u!114 &8308202866491498458
@@ -749,9 +749,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPoints: 0
+  playerHealth: 1
   isPlaying: 1
-  maxTilt: 0.6
-  maxTiltRotation: 15
+  tiltSensitivity: 2
+  text: {fileID: 0}
 --- !u!65 &4960363278945042368
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -763,7 +764,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Size: {x: 0.25, y: 0.3, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1825501200
 Rigidbody:

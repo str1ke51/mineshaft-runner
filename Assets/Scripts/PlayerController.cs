@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public int playerPoints = 0;
+    public int playerHealth = 1;
     public bool isPlaying = true;
     public float tiltSensitivity = 2.0f;
 
@@ -34,12 +32,27 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        CollectibleItemSettings collectibleItemSettings = other.GetComponent<CollectibleItemSettings>();
+        SpawnableItemSettings spawnableItemSettings = other.GetComponent<SpawnableItemSettings>();
 
-        if(collectibleItemSettings)
+        if(spawnableItemSettings)
         {
-            playerPoints += collectibleItemSettings.points;
-            Destroy(collectibleItemSettings.gameObject);
+            if (spawnableItemSettings.isObstacle)
+                DealDamage(spawnableItemSettings.points);
+            else
+                playerPoints += spawnableItemSettings.points;
+                
+            Destroy(spawnableItemSettings.gameObject);
+        }
+    }
+
+    public void DealDamage(int damagePoints)
+    {
+        playerHealth -= damagePoints;
+
+        if (playerHealth <= 0)
+        {
+            Debug.LogError("GAME OVER SCREEN");
+            Application.Quit();
         }
     }
 }

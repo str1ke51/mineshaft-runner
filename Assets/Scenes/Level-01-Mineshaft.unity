@@ -898,10 +898,13 @@ MonoBehaviour:
   - {fileID: 2267862805949806685, guid: eadc03b4d6ea59d4a968ba02b7624ed4, type: 3}
   - {fileID: -3981733368079430843, guid: b664aac11f018214680074dc061e7177, type: 3}
   spawnRatePercent: 0.25
-  collectibleItemPrefabs:
-  - {fileID: 4819689421112363717, guid: 754d1601286ec934c9244d53c21fae93, type: 3}
+  spawnableItemPrefabs:
   - {fileID: 2027463363980723194, guid: 381709f3b77d53f46af08d795ac84851, type: 3}
+  - {fileID: 4819689421112363717, guid: 754d1601286ec934c9244d53c21fae93, type: 3}
+  - {fileID: 7680515355902123266, guid: 4cef6b0f236e0b840aceaefc3157bdf5, type: 3}
   spawnedSections: []
+  targetSpawn: {x: 0, y: 0, z: 0}
+  spawnableItemsPointsRange: 0
 --- !u!4 &1670945352
 Transform:
   m_ObjectHideFlags: 0
@@ -1156,14 +1159,6 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1738619200}
-    - target: {fileID: 8308202866491498456, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
-      propertyPath: m_PoseSource
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8308202866491498456, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
-      propertyPath: m_TrackingType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8308202866642930801, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
       propertyPath: m_Name
       value: Player
