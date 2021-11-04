@@ -9,9 +9,11 @@ public class PlayerController : MonoBehaviour
     public float tiltSensitivity = 2.0f;
 
     public TextMeshProUGUI text;
+    public Transform cartDummy;
 
     private CameraPointer cameraPointer;
     private Vector3 startPosition;
+    private float cartRotationSpeed = 40.0f;
 
     public void Start()
     {
@@ -24,8 +26,9 @@ public class PlayerController : MonoBehaviour
         if (cameraPointer.enabled == isPlaying)
             cameraPointer.enabled = !isPlaying;
 
-        float zTilt = transform.rotation.z * -1;
-        transform.position = startPosition + Vector3.right * zTilt * tiltSensitivity;
+        float zTilt = transform.rotation.z * tiltSensitivity;
+        transform.position = startPosition + Vector3.left * zTilt;
+        cartDummy.rotation = Quaternion.Euler(0, 0, zTilt * cartRotationSpeed);
 
         text.text = "Points: " + playerPoints;
     }

@@ -5,8 +5,11 @@ using UnityEngine;
 public class TrackSectionManager : MonoBehaviour
 {
     [Header("General Settings")]
+    public PlayerController player;
     public float movementSpeed = 5.0f;
     public float neededSpawnedArea = 25.0f;
+    public float speedLevelDuration = 60.0f;
+    public float speedLevelIncrease = 0.5f;
 
     [Header("Track Sections")]
     public TrackSection startTrackSectionPrefab = null;
@@ -23,6 +26,8 @@ public class TrackSectionManager : MonoBehaviour
     private Vector3 targetSpawn = new Vector3();
     [SerializeField]
     private float spawnableItemsPointsRange = 0;
+    [SerializeField]
+    public float speedLevelTimeLeft = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -34,33 +39,46 @@ public class TrackSectionManager : MonoBehaviour
 
         TrackSection start = Instantiate(startTrackSectionPrefab, targetSpawn, Quaternion.identity);
         spawnedSections.Add(start);
+
+        speedLevelTimeLeft = speedLevelDuration;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (spawnedSections.Count == 0 ||
-            spawnedSections[spawnedSections.Count - 1].transform.position.z + spawnedSections[spawnedSections.Count - 1].totalLength / 2 < neededSpawnedArea)
+        if (player.isPlaying)
         {
-            SpawnNewSection();
-        }
-
-        if (spawnedSections.Count > 0)
-        {
-            foreach (var section in spawnedSections)
+            if (spawnedSections.Count == 0 ||
+                spawnedSections[spawnedSections.Count - 1].transform.position.z + spawnedSections[spawnedSections.Count - 1].totalLength / 2 < neededSpawnedArea)
             {
-                if (section.transform.position.z + section.totalLength / 2 < neededSpawnedArea * -1)
-                {
-                    section.toDelete = true;
-                    Destroy(section.gameObject);
-                }
-                else
-                {
-                    section.transform.position = section.transform.position - Vector3.forward * movementSpeed * Time.deltaTime;
-                }
+                SpawnNewSection();
             }
 
-            spawnedSections.RemoveAll(ss => ss.toDelete);
+            if (spawnedSections.Count > 0)
+            {
+                foreach (var section in spawnedSections)
+                {
+                    if (section.transform.position.z + section.totalLength / 2 < neededSpawnedArea * -1)
+                    {
+                        section.toDelete = true;
+                        Destroy(section.gameObject);
+                    }
+                    else
+                    {
+                        section.transform.position = section.transform.position - Vector3.forward * movementSpeed * Time.deltaTime;
+                    }
+                }
+
+                spawnedSections.RemoveAll(ss => ss.toDelete);
+            }
+
+            speedLevelTimeLeft -= Time.deltaTime;
+            if (speedLevelTimeLeft <= 0)
+            {
+                player.playerPoints += Mathf.FloorToInt(movementSpeed);
+                speedLevelTimeLeft = speedLevelDuration;
+                movementSpeed += speedLevelIncrease;
+            }
         }
     }
 

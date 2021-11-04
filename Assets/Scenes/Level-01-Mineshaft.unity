@@ -354,7 +354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &389255505
 Light:
   m_ObjectHideFlags: 0
@@ -497,6 +497,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &573276345 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3084380769628391802, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+  m_PrefabInstance: {fileID: 8308202867416005878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &884196543 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3188564696032563278, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+  m_PrefabInstance: {fileID: 8308202867416005878}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d0a32567a346b949a96a9ddf284d958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &955127915
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,8 +907,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da15901b89ad44c4f8936b8ca7417ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 884196543}
   movementSpeed: 4
   neededSpawnedArea: 100
+  speedLevelDuration: 15
+  speedLevelIncrease: 1
   startTrackSectionPrefab: {fileID: 8181798163045731602, guid: a7da469cd9687a544b4262d3d840929f, type: 3}
   trackSectionPrefabs:
   - {fileID: 2267862805949806685, guid: eadc03b4d6ea59d4a968ba02b7624ed4, type: 3}
@@ -902,9 +921,11 @@ MonoBehaviour:
   - {fileID: 2027463363980723194, guid: 381709f3b77d53f46af08d795ac84851, type: 3}
   - {fileID: 4819689421112363717, guid: 754d1601286ec934c9244d53c21fae93, type: 3}
   - {fileID: 7680515355902123266, guid: 4cef6b0f236e0b840aceaefc3157bdf5, type: 3}
+  - {fileID: 5020832697194674242, guid: 201cb8f18e696714aacb3c0eb7fe91c8, type: 3}
   spawnedSections: []
   targetSpawn: {x: 0, y: 0, z: 0}
   spawnableItemsPointsRange: 0
+  speedLevelTimeLeft: 0
 --- !u!4 &1670945352
 Transform:
   m_ObjectHideFlags: 0
@@ -1159,6 +1180,22 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1738619200}
+    - target: {fileID: 3188564696032563278, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+      propertyPath: cartDummy
+      value: 
+      objectReference: {fileID: 573276345}
+    - target: {fileID: 4874810831178614641, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+      propertyPath: m_AngularXMotion
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4874810831178614641, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4874810831178614641, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+      propertyPath: m_AngularZMotion
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8308202866642930801, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
       propertyPath: m_Name
       value: Player
