@@ -914,8 +914,9 @@ MonoBehaviour:
   speedLevelIncrease: 1
   startTrackSectionPrefab: {fileID: 8181798163045731602, guid: a7da469cd9687a544b4262d3d840929f, type: 3}
   trackSectionPrefabs:
-  - {fileID: 2267862805949806685, guid: eadc03b4d6ea59d4a968ba02b7624ed4, type: 3}
-  - {fileID: -3981733368079430843, guid: b664aac11f018214680074dc061e7177, type: 3}
+  - {fileID: 2267862805949806685, guid: da0b59db42991bb43a0bf7e54ef533fc, type: 3}
+  - {fileID: 2267862805949806685, guid: 9888cbb300c73664ab54e276431f3210, type: 3}
+  - {fileID: 2267862805949806685, guid: e2044420826eae84093b8c76fda77145, type: 3}
   spawnRatePercent: 0.25
   spawnableItemPrefabs:
   - {fileID: 2027463363980723194, guid: 381709f3b77d53f46af08d795ac84851, type: 3}
