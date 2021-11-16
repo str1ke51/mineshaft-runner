@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.016
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_AmbientSkyColor: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
   m_AmbientEquatorColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_AmbientGroundColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_AmbientIntensity: 1
@@ -914,10 +914,11 @@ MonoBehaviour:
   speedLevelIncrease: 1
   startTrackSectionPrefab: {fileID: 8181798163045731602, guid: a7da469cd9687a544b4262d3d840929f, type: 3}
   trackSectionPrefabs:
-  - {fileID: 2267862805949806685, guid: da0b59db42991bb43a0bf7e54ef533fc, type: 3}
   - {fileID: 2267862805949806685, guid: 9888cbb300c73664ab54e276431f3210, type: 3}
   - {fileID: 2267862805949806685, guid: e2044420826eae84093b8c76fda77145, type: 3}
   - {fileID: 2267862805949806685, guid: a7817d2f44030694a84413cffc3fbf82, type: 3}
+  - {fileID: 2267862805949806685, guid: 4c5d190ec75af824189f6fe1432f7f30, type: 3}
+  - {fileID: 2267862805949806685, guid: 5918de966fcdf9f4b9bba14fa2ef7c0a, type: 3}
   spawnRatePercent: 0.25
   spawnableItemPrefabs:
   - {fileID: 2027463363980723194, guid: 381709f3b77d53f46af08d795ac84851, type: 3}
@@ -1178,6 +1179,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1186638086756122738, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.4292
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186638086756122738, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: 1.0482
+      objectReference: {fileID: 0}
+    - target: {fileID: 2775820807191933599, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.23334605
+      objectReference: {fileID: 0}
+    - target: {fileID: 2775820807191933599, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -1.7086446
+      objectReference: {fileID: 0}
+    - target: {fileID: 2775820807191933599, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.17677653
+      objectReference: {fileID: 0}
     - target: {fileID: 3188564696032563278, guid: 1470f1139b30b0e4db18de5968080b2b, type: 3}
       propertyPath: text
       value: 
