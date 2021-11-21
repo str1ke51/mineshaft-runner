@@ -40,5 +40,11 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
+  },
+  "lock": {
+    "com.google.xr.cardboard": {
+      "revision": "HEAD",
+      "hash": "6ea2c3c041dfe61a3b254fc482fd56ad852a725c"
+    }
   }
 }
