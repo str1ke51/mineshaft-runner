@@ -18,24 +18,31 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Sends messages to gazed GameObject.
 /// </summary>
 public class CameraPointer : MonoBehaviour
 {
-    private const float _maxDistance = 10;
+    public float maxDistance = 10;
+    public float gazeTimeClick = 1.5f;
+    public Image loader;
+
     private GameObject _gazedAtObject = null;
+    private float _gazeTime = 0;
 
     /// <summary>
     /// Update is called once per frame.
     /// </summary>
     public void Update()
     {
+        Debug.Log(_gazedAtObject);
+
         // Casts ray towards camera's forward direction, to detect if a GameObject is being gazed
         // at.
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, _maxDistance))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
         {
             // GameObject detected in front of the camera.
             if (_gazedAtObject != hit.transform.gameObject)
@@ -43,7 +50,13 @@ public class CameraPointer : MonoBehaviour
                 // New GameObject.
                 _gazedAtObject?.SendMessage("OnPointerExit");
                 _gazedAtObject = hit.transform.gameObject;
+                SetGazeTime(0);
                 _gazedAtObject.SendMessage("OnPointerEnter");
+            }
+            else
+            {
+                // Still same GameObject
+                SetGazeTime(_gazeTime + Time.deltaTime);
             }
         }
         else
@@ -51,6 +64,7 @@ public class CameraPointer : MonoBehaviour
             // No GameObject detected in front of the camera.
             _gazedAtObject?.SendMessage("OnPointerExit");
             _gazedAtObject = null;
+            SetGazeTime(0);
         }
 
         // Checks for screen touches.
@@ -58,5 +72,16 @@ public class CameraPointer : MonoBehaviour
         {
             _gazedAtObject?.SendMessage("OnPointerClick");
         }
+
+        if(_gazeTime >= gazeTimeClick)
+        {
+            _gazedAtObject?.SendMessage("OnPointerHover");
+        }
+    }
+
+    private void SetGazeTime(float value)
+    {
+        _gazeTime = value;
+        loader.fillAmount = Mathf.Clamp(_gazeTime / gazeTimeClick, 0, 1);
     }
 }
