@@ -16,7 +16,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,13 +31,16 @@ public class CameraPointer : MonoBehaviour
     private GameObject _gazedAtObject = null;
     private float _gazeTime = 0;
 
+    private void Awake()
+    {
+        SetGazeTime(0);
+    }
+
     /// <summary>
     /// Update is called once per frame.
     /// </summary>
     public void Update()
     {
-        Debug.Log(_gazedAtObject);
-
         // Casts ray towards camera's forward direction, to detect if a GameObject is being gazed
         // at.
         RaycastHit hit;
@@ -48,9 +50,9 @@ public class CameraPointer : MonoBehaviour
             if (_gazedAtObject != hit.transform.gameObject)
             {
                 // New GameObject.
+                SetGazeTime(0);
                 _gazedAtObject?.SendMessage("OnPointerExit");
                 _gazedAtObject = hit.transform.gameObject;
-                SetGazeTime(0);
                 _gazedAtObject.SendMessage("OnPointerEnter");
             }
             else
@@ -62,9 +64,9 @@ public class CameraPointer : MonoBehaviour
         else
         {
             // No GameObject detected in front of the camera.
+            SetGazeTime(0);
             _gazedAtObject?.SendMessage("OnPointerExit");
             _gazedAtObject = null;
-            SetGazeTime(0);
         }
 
         // Checks for screen touches.
@@ -81,7 +83,10 @@ public class CameraPointer : MonoBehaviour
 
     private void SetGazeTime(float value)
     {
-        _gazeTime = value;
-        loader.fillAmount = Mathf.Clamp(_gazeTime / gazeTimeClick, 0, 1);
+        if (value == 0 || _gazedAtObject?.GetComponent<VRClickableButton>())
+        {
+            _gazeTime = value;
+            loader.fillAmount = Mathf.Clamp(_gazeTime / gazeTimeClick, 0, 1);    
+        }
     }
 }

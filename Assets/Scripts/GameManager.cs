@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class TrackSectionManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
+    private static GameManager _instance;
+    public static GameManager Instance { get { return _instance; } }
+
     [Header("General Settings")]
     public PlayerController player;
-    public float movementSpeed = 5.0f;
+    public float startMovementSpeed = 5.0f;
     public float neededSpawnedArea = 25.0f;
     public float speedLevelDuration = 60.0f;
     public float speedLevelIncrease = 0.5f;
@@ -28,6 +32,16 @@ public class TrackSectionManager : MonoBehaviour
     private float spawnableItemsPointsRange = 0;
     [SerializeField]
     public float speedLevelTimeLeft = 0;
+    [SerializeField]
+    private float movementSpeed = 0;
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+            Destroy(gameObject);
+        else
+            _instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +54,7 @@ public class TrackSectionManager : MonoBehaviour
         TrackSection start = Instantiate(startTrackSectionPrefab, targetSpawn, Quaternion.identity);
         spawnedSections.Add(start);
 
+        movementSpeed = startMovementSpeed;
         speedLevelTimeLeft = speedLevelDuration;
     }
 
@@ -146,5 +161,26 @@ public class TrackSectionManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void StartNewGame()
+    {
+        foreach (var section in spawnedSections)
+            Destroy(section.gameObject);
+        spawnedSections.Clear();
+
+        targetSpawn = transform.position + Vector3.forward * startTrackSectionPrefab.totalLength / 2;
+
+        TrackSection start = Instantiate(startTrackSectionPrefab, targetSpawn, Quaternion.identity);
+        spawnedSections.Add(start);
+        
+        movementSpeed = startMovementSpeed;
+        speedLevelTimeLeft = speedLevelDuration;
+        player.isPlaying = true;
+    }
+
+    public void QuitToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

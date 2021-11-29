@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class PlayerController : MonoBehaviour
     public bool isPlaying = true;
     public float tiltSensitivity = 2.0f;
 
-    public TextMeshProUGUI text;
+    public TextMeshProUGUI pointsText;
+    public TextMeshProUGUI gameOverPointsText;
+    public GameObject gameOverSceen;
     public Transform cartDummy;
 
     private CameraPointer cameraPointer;
@@ -19,18 +22,21 @@ public class PlayerController : MonoBehaviour
     {
         cameraPointer = GetComponent<CameraPointer>();
         startPosition = transform.position;
+
+        gameOverSceen.SetActive(false);
     }
 
     public void Update()
     {
-        if (cameraPointer.enabled == isPlaying)
-            cameraPointer.enabled = !isPlaying;
+        cameraPointer.loader.transform.parent.gameObject.SetActive(!isPlaying);
+        cameraPointer.enabled = !isPlaying;
+        gameOverSceen.SetActive(!isPlaying);
 
         float zTilt = transform.rotation.z * tiltSensitivity;
         transform.position = startPosition + Vector3.left * zTilt;
         cartDummy.rotation = Quaternion.Euler(0, 0, zTilt * cartRotationSpeed);
 
-        text.text = "Points: " + playerPoints;
+        pointsText.text = isPlaying ? "Points: " + playerPoints : "";
     }
 
     public void OnTriggerEnter(Collider other)
@@ -39,12 +45,12 @@ public class PlayerController : MonoBehaviour
 
         if(spawnableItemSettings)
         {
+            Destroy(spawnableItemSettings.gameObject);
+
             if (spawnableItemSettings.isObstacle)
                 DealDamage(spawnableItemSettings.points);
             else
                 playerPoints += spawnableItemSettings.points;
-                
-            Destroy(spawnableItemSettings.gameObject);
         }
     }
 
@@ -53,9 +59,35 @@ public class PlayerController : MonoBehaviour
         playerHealth -= damagePoints;
 
         if (playerHealth <= 0)
+            GameOver();
+    }
+
+    private void GameOver()
+    {
+        isPlaying = false;
+        gameOverSceen.SetActive(true);
+        gameOverPointsText.text = $"You collected {playerPoints} points";
+
+        // Setting best scores
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        int sceneBestScore = PlayerPrefs.GetInt(PlayerPrefsKeys.BestLevelScore(currentSceneName));
+        if (playerPoints > sceneBestScore)
         {
-            Debug.LogError("GAME OVER SCREEN");
-            Application.Quit();
+            PlayerPrefs.SetInt(PlayerPrefsKeys.BestLevelScore(currentSceneName), playerPoints);
+            gameOverPointsText.text += "\nNew high score!";
         }
+
+        int bestScore = PlayerPrefs.GetInt(PlayerPrefsKeys.BestScore);
+        if (playerPoints > bestScore)
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.BestScore, playerPoints);
+            gameOverPointsText.text += "\nNew overall high score!";
+        }
+
+        int currentScore = PlayerPrefs.GetInt(PlayerPrefsKeys.OverallPoints);
+        PlayerPrefs.SetInt(PlayerPrefsKeys.OverallPoints, currentScore + playerPoints);
+
+        // Resetting points
+        playerPoints = 0;
     }
 }
