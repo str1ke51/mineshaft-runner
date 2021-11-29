@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
             speedLevelTimeLeft -= Time.deltaTime;
             if (speedLevelTimeLeft <= 0)
             {
-                player.playerPoints += Mathf.FloorToInt(movementSpeed);
+                player.LevelUp(Mathf.FloorToInt(movementSpeed));
                 speedLevelTimeLeft = speedLevelDuration;
                 movementSpeed += speedLevelIncrease;
             }
@@ -179,8 +179,17 @@ public class GameManager : MonoBehaviour
         player.isPlaying = true;
     }
 
-    public void QuitToMainMenu()
+    public void QuitToMainMenu(AudioClip playingClip = null)
     {
-        SceneManager.LoadScene(0);
+        if (playingClip)
+            StartCoroutine(DelayedLoad(playingClip.length, 0));
+        else
+            SceneManager.LoadScene(0);
+    }
+
+    IEnumerator DelayedLoad(float time, int sceneIndex)
+    {
+        yield return new WaitForSeconds(time);
+        SceneManager.LoadScene(sceneIndex);
     }
 }

@@ -77,6 +77,7 @@ public class CameraPointer : MonoBehaviour
 
         if(_gazeTime >= gazeTimeClick)
         {
+            SetGazeTime(0);
             _gazedAtObject?.SendMessage("OnPointerHover");
         }
     }
