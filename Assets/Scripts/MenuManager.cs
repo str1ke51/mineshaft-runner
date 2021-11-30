@@ -1,24 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    public GameObject mainMenuPanel;
-    public GameObject selectLevelPanel;
+    public List<GameObject> possibleMenuPanels = new List<GameObject>();
+    public TextMeshProUGUI highScoreText;
 
-    public void MM_NavigateToSelectLevel()
+    private void Start()
     {
-        Debug.Log("Navigating to SL");
-        StartCoroutine("NavigateToPanel", selectLevelPanel);
-        Debug.Log("Navigated to SL");
+        int overall = PlayerPrefs.GetInt(PlayerPrefsKeys.BestScore);
+        int best1 = PlayerPrefs.GetInt(PlayerPrefsKeys.BestLevelScore(1));
+        int best2 = PlayerPrefs.GetInt(PlayerPrefsKeys.BestLevelScore(2));
+        int best3 = PlayerPrefs.GetInt(PlayerPrefsKeys.BestLevelScore(3));
+        int scored = PlayerPrefs.GetInt(PlayerPrefsKeys.OverallPoints);
+
+        string text = $"Overall high score: {overall}\n\n" +
+                      $"High score level 1: {best1}\n" +
+                      $"High score level 2: {best2}\n" +
+                      $"High score level 3: {best3}\n\n" +
+                      $"Points scored: {scored}";
+
+        highScoreText.text = text;
     }
 
-    public void MM_NavigateToMainMenu()
+    public void MM_NavigateToPanel(GameObject panel)
     {
-        StartCoroutine("NavigateToPanel", mainMenuPanel);
-    }
+        StartCoroutine("NavigateToPanel", panel);
+    }    
 
     public void MM_LoadLevel(int index)
     {
@@ -32,8 +43,8 @@ public class MenuManager : MonoBehaviour
 
     private IEnumerator NavigateToPanel(GameObject panelToActivate)
     {
-        mainMenuPanel.SetActive(false);
-        selectLevelPanel.SetActive(false);
+        foreach (var scene in possibleMenuPanels)
+            scene.SetActive(false);
 
         yield return new WaitForSeconds(0.1f);
 

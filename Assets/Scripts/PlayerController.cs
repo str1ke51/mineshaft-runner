@@ -99,11 +99,11 @@ public class PlayerController : MonoBehaviour
         gameOverPointsText.text = $"You collected {playerPoints} points";
 
         // Setting best scores
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        int sceneBestScore = PlayerPrefs.GetInt(PlayerPrefsKeys.BestLevelScore(currentSceneName));
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int sceneBestScore = PlayerPrefs.GetInt(PlayerPrefsKeys.BestLevelScore(currentSceneIndex));
         if (playerPoints > sceneBestScore)
         {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.BestLevelScore(currentSceneName), playerPoints);
+            PlayerPrefs.SetInt(PlayerPrefsKeys.BestLevelScore(currentSceneIndex), playerPoints);
             gameOverPointsText.text += "\nNew high score!";
         }
 
