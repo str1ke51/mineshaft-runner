@@ -6,7 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Samples/Google Cardboard XR Plugin for Unity/1.8.0/Hello Cardboard/Scenes/HelloCardboard.unity
-    guid: 145a2a45d7bc746b19cb68410368bf96
+    path: Assets/Scenes/Main Menu.unity
+    guid: d70ee98ca8cfc0e41b48826fd0a75042
+  - enabled: 1
+    path: Assets/Scenes/Level-01-Mineshaft.unity
+    guid: 9cae57581cfced440b6077abad4bd9bb
   m_configObjects:
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f3a6ba7192c173e4ea1bdbd93c46f79b, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f3a6ba7192c173e4ea1bdbd93c46f79b,
+      type: 2}

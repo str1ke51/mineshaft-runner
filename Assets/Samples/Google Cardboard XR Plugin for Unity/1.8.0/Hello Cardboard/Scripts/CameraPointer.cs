@@ -16,16 +16,25 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Sends messages to gazed GameObject.
 /// </summary>
 public class CameraPointer : MonoBehaviour
 {
-    private const float _maxDistance = 10;
+    public float maxDistance = 10;
+    public float gazeTimeClick = 1.5f;
+    public Image loader;
+
     private GameObject _gazedAtObject = null;
+    private float _gazeTime = 0;
+
+    private void Awake()
+    {
+        SetGazeTime(0);
+    }
 
     /// <summary>
     /// Update is called once per frame.
@@ -35,20 +44,27 @@ public class CameraPointer : MonoBehaviour
         // Casts ray towards camera's forward direction, to detect if a GameObject is being gazed
         // at.
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, _maxDistance))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
         {
             // GameObject detected in front of the camera.
             if (_gazedAtObject != hit.transform.gameObject)
             {
                 // New GameObject.
+                SetGazeTime(0);
                 _gazedAtObject?.SendMessage("OnPointerExit");
                 _gazedAtObject = hit.transform.gameObject;
                 _gazedAtObject.SendMessage("OnPointerEnter");
+            }
+            else
+            {
+                // Still same GameObject
+                SetGazeTime(_gazeTime + Time.deltaTime);
             }
         }
         else
         {
             // No GameObject detected in front of the camera.
+            SetGazeTime(0);
             _gazedAtObject?.SendMessage("OnPointerExit");
             _gazedAtObject = null;
         }
@@ -57,6 +73,21 @@ public class CameraPointer : MonoBehaviour
         if (Google.XR.Cardboard.Api.IsTriggerPressed)
         {
             _gazedAtObject?.SendMessage("OnPointerClick");
+        }
+
+        if(_gazeTime >= gazeTimeClick)
+        {
+            SetGazeTime(0);
+            _gazedAtObject?.SendMessage("OnPointerHover");
+        }
+    }
+
+    private void SetGazeTime(float value)
+    {
+        if (value == 0 || _gazedAtObject?.GetComponent<VRClickableButton>())
+        {
+            _gazeTime = value;
+            loader.fillAmount = Mathf.Clamp(_gazeTime / gazeTimeClick, 0, 1);    
         }
     }
 }
