@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         foreach (var item in spawnableItemPrefabs)
-            spawnableItemsPointsRange += (1.0f / item.points);
+            spawnableItemsPointsRange += (1.0f / item.GetProbability());
 
         targetSpawn = transform.position + Vector3.forward * startTrackSectionPrefab.totalLength / 2;
 
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
                     int spawnToIndex = spawnableItemPrefabs.Count - 1;
                     for (int j = 0; j < spawnableItemPrefabs.Count; j++)
                     {
-                        float itemRange = 1.0f / spawnableItemPrefabs[j].points;
+                        float itemRange = 1.0f / spawnableItemPrefabs[j].GetProbability();
 
                         if (spawn < itemRange)
                         {
@@ -143,7 +143,10 @@ public class GameManager : MonoBehaviour
                         }
                     }
 
-                    int spawnLength = Random.Range(1, Mathf.Min(4, Mathf.RoundToInt(section.totalLength - i)));
+                    int spawnLength = spawnableItemPrefabs[spawnToIndex].itemType == SpawnableItemType.HealthBoost 
+                                      ? 1 
+                                      : Random.Range(1, Mathf.Min(4, Mathf.RoundToInt(section.totalLength - i)));
+
                     int spawnVectorIndex = Random.Range(0, section.spawnPoints.Count);
                     Vector2 spawnVector = section.spawnPoints[spawnVectorIndex];
 
@@ -157,7 +160,7 @@ public class GameManager : MonoBehaviour
                         Instantiate(spawnableItemPrefabs[spawnToIndex], targetSpawn, Quaternion.identity, section.transform);
                     }
 
-                    i += spawnLength;
+                    i += spawnLength + 1;
                 }
             }
         }

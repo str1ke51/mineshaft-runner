@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1292817526969497549}
   - component: {fileID: 4819689421112363717}
   m_Layer: 0
-  m_Name: point
+  m_Name: double point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc4c7f607e56834e9020fdf7f275e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 1
+  points: 2
   itemType: 0
 --- !u!1 &8385986009234964277
 GameObject:
@@ -119,7 +119,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 903bd1b939f81c44b8d2147e996aec99, type: 2}
+  - {fileID: 2100000, guid: 78e275635c3cef04782edb7c3cecb1b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

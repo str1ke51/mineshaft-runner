@@ -171,4 +171,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 3
-  isObstacle: 1
+  itemType: 1
