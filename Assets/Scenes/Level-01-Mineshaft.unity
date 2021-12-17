@@ -124,6 +124,44 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &276507051 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8308202866491498461, guid: 1470f1139b30b0e4db18de5968080b2b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8308202867416005878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &276507061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276507051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &442265025
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +234,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 8308202867416005878}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 276507051}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d0a32567a346b949a96a9ddf284d958, type: 3}
@@ -426,11 +464,41 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1670945351}
+    - target: {fileID: 2775820807191933599, guid: 1470f1139b30b0e4db18de5968080b2b,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3167179492177260670, guid: 1470f1139b30b0e4db18de5968080b2b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.734
+      objectReference: {fileID: 0}
     - target: {fileID: 3188564696032563278, guid: 1470f1139b30b0e4db18de5968080b2b,
         type: 3}
       propertyPath: ambientAudioSource
       value: 
       objectReference: {fileID: 973694747}
+    - target: {fileID: 5954118030595501840, guid: 1470f1139b30b0e4db18de5968080b2b,
+        type: 3}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5954118030595501840, guid: 1470f1139b30b0e4db18de5968080b2b,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6435625685975634421, guid: 1470f1139b30b0e4db18de5968080b2b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136966694627117435, guid: 1470f1139b30b0e4db18de5968080b2b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.939
+      objectReference: {fileID: 0}
     - target: {fileID: 8308202866642930801, guid: 1470f1139b30b0e4db18de5968080b2b,
         type: 3}
       propertyPath: m_Name
